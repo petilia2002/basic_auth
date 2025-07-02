@@ -41,7 +41,7 @@ class User(db.Model):
         }
 
         if include_roles:
-            data["roles"] = [role.name for role in self.roles.all()]
+            data["roles"] = [role.role.name for role in self.roles]
 
         if include_associations:
             data["role_associations"] = [
@@ -63,7 +63,7 @@ class Role(db.Model):
         data = {"id": self.id, "name": self.name}
 
         if include_users:
-            data["users"] = [user.to_dict() for user in self.users.all()]
+            data["users"] = [user.user.to_dict() for user in self.users]
 
         if include_associations:
             data["user_associations"] = [

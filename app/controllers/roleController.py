@@ -8,7 +8,7 @@ class RoleController:
     def get_all_roles():
         try:
             roles = RoleService.get_all_roles()
-            return jsonify([role.to_dict() for role in roles]), 200
+            return jsonify([role.to_dict(include_users=True) for role in roles]), 200
         except Exception as e:
             return jsonify({"Error": str(e)}), 500
 

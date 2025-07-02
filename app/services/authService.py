@@ -13,3 +13,7 @@ class AuthService:
     @staticmethod
     def get_users():
         pass
+
+    @staticmethod
+    def get_user_by_id():
+        pass

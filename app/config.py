@@ -12,3 +12,4 @@ class Config:
     HOST = os.getenv("HOST", "localhost")
     PORT = os.getenv("PORT", 5000)
     DEBUG = os.getenv("DEBUG", True)
+    SECRET_KEY = os.getenv("SECRET_KEY", "secret_key")
