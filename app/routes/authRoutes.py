@@ -19,6 +19,7 @@ def login():
 
 @auth_bp.route("/users", methods=["GET"])
 def get_users():
+    print("Call Get Users Route!")
     return AuthController.get_users()
 
 
