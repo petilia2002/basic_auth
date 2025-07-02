@@ -8,7 +8,7 @@ load_dotenv()
 class Config:
     # Database configuration
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
-    SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv("SQLALCHEMY_TRACK_MODIFICATIONS")
-    HOST = os.getenv("HOST")
-    PORT = os.getenv("PORT")
-    DEBUG = os.getenv("DEBUG")
+    SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv("SQLALCHEMY_TRACK_MODIFICATIONS", False)
+    HOST = os.getenv("HOST", "localhost")
+    PORT = os.getenv("PORT", 5000)
+    DEBUG = os.getenv("DEBUG", True)

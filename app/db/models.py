@@ -11,13 +11,9 @@ class UserRole(db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id", ondelete="CASCADE"))
     assigned_at = db.Column(db.DateTime, server_default=db.func.now())
 
-    # Отношения
-    role = db.relationship(
-        "Role", backref=db.backref("user_associations", passive_deletes=True)
-    )
-    user = db.relationship(
-        "User", backref=db.backref("role_associations", passive_deletes=True)
-    )
+    # Отношения:
+    role = db.relationship("Role", back_populates="users")
+    user = db.relationship("User", back_populates="roles")
 
     def to_dict(self):
         return {
@@ -35,12 +31,7 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
 
-    roles = db.relationship(
-        "Role",
-        secondary="user_roles",
-        back_populates="users",
-        lazy="dynamic",
-    )
+    roles = db.relationship("UserRole", back_populates="user", passive_deletes=True)
 
     def to_dict(self, include_roles=False, include_associations=False):
         data = {
@@ -66,12 +57,7 @@ class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
 
-    users = db.relationship(
-        "User",
-        secondary="user_roles",
-        back_populates="roles",
-        lazy="dynamic",
-    )
+    users = db.relationship("UserRole", back_populates="role", passive_deletes=True)
 
     def to_dict(self, include_users=False, include_associations=False):
         data = {"id": self.id, "name": self.name}
